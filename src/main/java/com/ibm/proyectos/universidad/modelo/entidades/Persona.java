@@ -17,7 +17,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 import lombok.Getter;
@@ -28,24 +29,30 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-//@Table(name = "personas", schema = "universidad")
-@Table(name = "personas")
+@Table(name = "personas", schema = "universidad")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Persona implements Serializable 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@NotNull
+	@NotEmpty
 	@Column(name = "nombre", nullable = false, length = 60)
 	private String nombre;
-	
+
+	@NotNull
+	@NotEmpty
 	@Column(name = "apellido", nullable = false, length = 60)
 	private String apellido;
-	
+
+	@NotNull
 	@Column(name = "dni", nullable = false, unique = true, length = 10)
 	private String dni;
-	
+
+	@NotNull
+	@NotEmpty
 	@Column(name = "usuario_creacion", nullable = false)
 	private String usuarioCreacion;
 	
@@ -61,8 +68,8 @@ public abstract class Persona implements Serializable
 		@AttributeOverride(name =  "departamento", column = @Column(name = "departamento"))
 	})
 	private Direccion direccion;
-	
-	public Persona(Long id, String nombre, String apellido, String dni, String usuarioCreacion, Direccion direccion) 
+
+	public Persona(Long id, String nombre, String apellido, String dni, String usuarioCreacion, Direccion direccion)
 	{
 		this.id = id;
 		this.nombre = nombre;
@@ -71,96 +78,6 @@ public abstract class Persona implements Serializable
 		this.usuarioCreacion = usuarioCreacion;
 		this.direccion = direccion;
 	}
-	
-	
-	
-	public Long getId() {
-		return id;
-	}
-
-
-
-	
-
-
-
-	public String getNombre() {
-		return nombre;
-	}
-
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
-
-	public String getApellido() {
-		return apellido;
-	}
-
-
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-
-
-	public String getDni() {
-		return dni;
-	}
-
-
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
-
-
-	public String getUsuarioCreacion() {
-		return usuarioCreacion;
-	}
-
-
-
-
-
-
-
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-
-
-	
-
-
-
-	public Date getFechaModificacion() {
-		return fechaModificacion;
-	}
-
-
-	public Direccion getDireccion() {
-		return direccion;
-	}
-
-
-
-	public void setDireccion(Direccion direccion) {
-		this.direccion = direccion;
-	}
-
-
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 
 
 	@Override

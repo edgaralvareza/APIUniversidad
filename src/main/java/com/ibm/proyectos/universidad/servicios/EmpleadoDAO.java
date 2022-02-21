@@ -8,4 +8,5 @@ public interface EmpleadoDAO extends PersonaDAO
 
 {
 	public Iterable<Persona> findEmpleadoByTipoEmpleado(TipoEmpleado tipoEmpleado);
+	public Persona actualizar(Long empleadoId, Persona empleado);
 }

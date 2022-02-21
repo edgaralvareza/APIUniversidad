@@ -16,8 +16,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-//@Table(name = "pabellones", schema = "universidad")
-@Table(name = "pabellones")
+@Table(name = "pabellones", schema = "universidad")
 public class Pabellon implements Serializable 
 {
 	@Id
@@ -58,19 +57,6 @@ public class Pabellon implements Serializable
 		this.direccion = direccion;
 		this.usuarioCreacion = usuarioCreacion;
 	}
-	
-	
-	
-	public Direccion getDireccion() {
-		return direccion;
-	}
-
-
-
-	public void setDireccion(Direccion direccion) {
-		this.direccion = direccion;
-	}
-
 
 
 	@Override

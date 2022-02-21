@@ -1,5 +1,7 @@
 package com.ibm.proyectos.universidad.servicios;
 
+import com.ibm.proyectos.universidad.excepciones.NotFoundException;
+import com.ibm.proyectos.universidad.modelo.entidades.Carrera;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,7 @@ import com.ibm.proyectos.universidad.modelo.entidades.Aula;
 import com.ibm.proyectos.universidad.modelo.entidades.Pabellon;
 import com.ibm.proyectos.universidad.repositorios.AulaRepository;
 
-
+import java.util.Optional;
 
 
 @Service
@@ -43,7 +45,20 @@ public class AulaDAOImpl extends GenericoDAOImpl<Aula, AulaRepository> implement
 		
 		return repository.findAulaBynumeroAulaContains(numeroAula);
 	}
- 
+
+	@Override
+	public Aula actualizar(Long aulaId, Aula aula) {
+		Optional<Aula> oAula = repository.findById(aulaId);
+
+		if(!oAula.isPresent())
+			throw new NotFoundException(String.format("El aula con ID %d no existe", aulaId));
+
+		Aula aulaActualizada = null;
+		oAula.get().setCantidadPupitres(aula.getCantidadPupitres());
+		oAula.get().setTipoPizarron(aula.getTipoPizarron());
+		aulaActualizada = repository.save(oAula.get());
+		return aulaActualizada;
+	}
 
 
 }

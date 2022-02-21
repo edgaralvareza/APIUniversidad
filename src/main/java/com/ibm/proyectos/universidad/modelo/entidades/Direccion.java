@@ -25,37 +25,6 @@ public class Direccion implements Serializable
 	private String departamento;
 	private String piso;
 	private String localidad;
-	
-	
-
-
-
-
-
-	public Direccion(String calle, String numero, String codigoPostal, String departamento, String piso,
-			String localidad) {
-		
-		this.calle = calle;
-		this.numero = numero;
-		this.codigoPostal = codigoPostal;
-		this.departamento = departamento;
-		this.piso = piso;
-		this.localidad = localidad;
-	}
-
-
-
-
-
-
-
-	public Direccion() {
-		
-	}
-
-
-
-
 
 
 

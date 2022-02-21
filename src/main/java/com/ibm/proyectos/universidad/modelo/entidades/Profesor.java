@@ -1,6 +1,7 @@
 package com.ibm.proyectos.universidad.modelo.entidades;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,7 +15,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,8 +25,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-//@Table(name = "profesores", schema = "universidad")
-@Table(name = "profesores")
+@Table(name = "profesores", schema = "universidad")
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Profesor extends Persona 
 {
@@ -33,37 +34,22 @@ public class Profesor extends Persona
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
-			//name = "profesor_carrera", schema = "universidad",
-			name = "profesor_carrera",
+			name = "profesor_carrera", schema = "universidad",
 			joinColumns = @JoinColumn(name = "profesor_id"),
 			inverseJoinColumns = @JoinColumn(name = "carrera_id")
 			)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "profesores"})
 	private Set<Carrera> carreras;
-	
-	
-	
-	public Profesor(Long id, String nombre, String apellido, String dni, String usuarioCreacion, Direccion direccion, BigDecimal sueldo) 
-	{
-		super(id, nombre, apellido, dni, usuarioCreacion, direccion);
-		this.sueldo = sueldo;
-	}
-	
-	
-	
-	public Set<Carrera> getCarreras() {
-		return carreras;
-	}
 
-
-
-	public void setCarreras(Set<Carrera> carreras) {
-		this.carreras = carreras;
-	}
-
+    public Profesor(Long id, String nombre, String apellido, String dni, String usuarioCreacion, Direccion direccion, BigDecimal sueldo)
+    {
+        super(id, nombre, apellido, dni, usuarioCreacion, direccion);
+        this.sueldo = sueldo;
+    }
 
 
 	@Override
-	public String toString() 
+	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
 		builder.append(super.toString());
@@ -72,10 +58,6 @@ public class Profesor extends Persona
 		builder.append("]");
 		return builder.toString();
 	}
-
-
-	
-
 
 	private static final long serialVersionUID = 2464915410657239179L;
 }

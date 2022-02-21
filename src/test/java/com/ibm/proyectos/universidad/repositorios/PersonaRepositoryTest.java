@@ -108,9 +108,9 @@ public class PersonaRepositoryTest
 
 		
 		String apellido = "Benitez";
-		List<Persona> expected = (List<Persona>) alumnoRepository.buscarPersonaPorApellido(apellido);
+		Optional<Persona> expected =  alumnoRepository.buscarPersonaPorApellido(apellido);
 		
-		assertThat(expected.size()==2).isTrue();
+		assertThat(expected.get().getApellido().equals(apellido));
 	
 		
 	}
